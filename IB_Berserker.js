@@ -4,7 +4,7 @@
  
 
 /*:
- * @plugindesc v1.01 Boost the damages of an actor/enemy based on a formula.
+ * @plugindesc v1.02 Boost the damages of an actor/enemy based on a formula.
  * @author InBlast  
  *       
  *
@@ -16,7 +16,7 @@
  * 
  * This plugin allow you to design an character as a berserker, and boost his 
  * damages in function of a formula.
- * The formula 
+ * 
  *
  * --------------------------------------------------------------------------------
  * Actor/enemy Notetag
@@ -24,12 +24,13 @@
  * <Berserker: formula>
  * Make the actor a "Berserker", and apply the formula as a multiplicative value
  * to the damages. 
+ * Default formula : 2 - this.subject().hpRate()
  * --------------------------------------------------------------------------------
  * Version History
  * --------------------------------------------------------------------------------
  * 1.00 - Release
  * 1.01 - Allowing enemy to be a berserker
-
+ * 1.02 - Removing the parameter. The formula is now in the notetag.
 
  */
  
