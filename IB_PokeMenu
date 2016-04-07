@@ -1,0 +1,76 @@
+//=============================================================================
+// IB_PokeMenu.js
+//=============================================================================
+
+/*:
+ * @plugindesc Custom menu for pokemons games.
+ * @author InBlast
+ *
+ * @param MainActorID
+ * @desc The ID of the trainer (to use its name in the menu)
+ * @default 1
+ * 
+
+ * 
+ * @help This plugin don't use commands.
+ *
+ */
+
+//===================SCENEMENU===================
+
+(function(){
+
+    var parameters = PluginManager.parameters('IB_PokeMenu');
+    var mainActor = parameters['MainActorID'] || '1';
+    Scene_Menu.prototype.create = function() {
+        Scene_MenuBase.prototype.create.call(this);
+        this.createCommandWindow();
+
+    };
+    Scene_Menu.prototype.start = function() {
+        Scene_MenuBase.prototype.start.call(this);
+    };
+    Scene_Menu.prototype.createCommandWindow = function() {
+        this._commandWindow = new Window_MenuCommand(575, 0);
+        this._commandWindow.setHandler('pokedex',   this.commandPokedex.bind(this));
+        this._commandWindow.setHandler('item',      this.commandItem.bind(this));
+        this._commandWindow.setHandler('status',    this.commandPersonal.bind(this));
+        this._commandWindow.setHandler('formation', this.commandFormation.bind(this));
+        this._commandWindow.setHandler('options',   this.commandOptions.bind(this));
+        this._commandWindow.setHandler('save',      this.commandSave.bind(this));
+        this._commandWindow.setHandler('gameEnd',   this.commandGameEnd.bind(this));
+        this._commandWindow.setHandler('cancel',    this.popScene.bind(this));
+        this.addWindow(this._commandWindow);
+    };
+    Scene_Menu.prototype.commandPokedex = function() {
+        SceneManager.push(Scene_Load)  // mettre le pokedex ============
+    }
+    Scene_Menu.prototype.commandFormation = function() {
+    };
+    Window_MenuCommand.prototype.makeCommandList = function() {
+        this.addPokedexCommand();
+        this.addFormationCommand();
+        this.addMainCommands();
+        this.addSaveCommand();
+        this.addOptionsCommand();
+        this.addGameEndCommand();
+    };
+    Window_MenuCommand.prototype.addMainCommands = function() {
+        var enabled = this.areMainCommandsEnabled();
+        if (this.needsCommand('item')) {
+            this.addCommand('BAG', 'item', enabled);
+        }
+        if (this.needsCommand('status')) {
+            this.addCommand($dataActors[mainActor].name, 'status', enabled);
+        }
+    };
+    Window_MenuCommand.prototype.addFormationCommand = function() {
+        if (this.needsCommand('formation')) {
+            var enabled = this.isFormationEnabled();
+            this.addCommand('POKéMON', 'formation', enabled);
+        }
+    };
+    Window_MenuCommand.prototype.addPokedexCommand = function() {
+        this.addCommand('POKEDEX', 'pokedex', true);
+    }
+})();
