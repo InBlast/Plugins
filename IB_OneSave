@@ -1,0 +1,28 @@
+//=============================================================================
+// IB_OneSave.js
+//=============================================================================
+ 
+/*:
+ * @plugindesc v1.00 Restrict the number of saving slot to one.
+ * @author InBlast  
+ *       
+ *
+ *
+ *
+ * @help 
+ * --------------------------------------------------------------------------------
+ * Free for non commercial and commercial use, but credits are required.
+ * 
+ * This plugin restrict the number of saving slots to one and only one =)
+ * 
+ *
+ 
+ * --------------------------------------------------------------------------------
+ * Version History
+ * --------------------------------------------------------------------------------
+ * 1.00 - Release
+*/
+
+DataManager.maxSavefiles = function() {
+    return 1;
+};
