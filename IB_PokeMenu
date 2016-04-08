@@ -12,10 +12,17 @@
  * 
 
  * 
- * @help This plugin don't use commands.
+ * @help v1.00 This plugin don't use commands.
  *
  */
-
+//=================================Updates====================================
+/*v1.00 Emerald-like pokemon menu. The name of the trainer is a sub-menu.
+ *
+ *
+ *
+ *
+*/
+//============================================================================
 //===================SCENEMENU===================
 
 (function(){
