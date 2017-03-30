@@ -28,7 +28,6 @@
  
   (function() {
   var parameters = PluginManager.parameters('NegativeMana');
-s
 
 Game_BattlerBase.prototype.refresh = function() {
     this.stateResistSet().forEach(function(stateId) {
