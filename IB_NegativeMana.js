@@ -42,8 +42,9 @@ Game_BattlerBase.prototype.refresh = function() {
 
 
 Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
-    return this._tp >= this.skillTpCost(skill);
+    return this._tp >= this.skillTpCost(skill) && this._mp > 0;
 };
+
 
 Window_Base.prototype.drawGauge = function(x, y, width, rate, color1, color2) {
   if(rate<0) {
