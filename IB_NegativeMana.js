@@ -40,8 +40,19 @@ Game_BattlerBase.prototype.refresh = function() {
     this._tp = this._tp.clamp(0, this.maxTp());
 };
 
+
 Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
     return this._tp >= this.skillTpCost(skill);
+};
+
+Window_Base.prototype.drawGauge = function(x, y, width, rate, color1, color2) {
+  if(rate<0) {
+    rate = 0;
+  }
+    var fillW = Math.floor(width * rate);
+    var gaugeY = y + this.lineHeight() - 8;
+    this.contents.fillRect(x, gaugeY, width, 6, this.gaugeBackColor());
+    this.contents.gradientFillRect(x, gaugeY, fillW, 6, color1, color2);
 };
 
   })(); 
