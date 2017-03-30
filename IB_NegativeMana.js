@@ -4,7 +4,7 @@
  
 
 /*:
- * @plugindesc v1.00 Allow the mana to take negative values
+ * @plugindesc v1.01 Allow the mana to take negative values
  * @author InBlast  
  *       
  *
@@ -23,6 +23,7 @@
  * Version History
  * --------------------------------------------------------------------------------
  * 1.00 - Release
+ * 1.01 - Makes the actor unable to use a skill if it costs mana and his mana is negative.
 
  */
  
