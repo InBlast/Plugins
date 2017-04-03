@@ -41,11 +41,11 @@ Game_BattlerBase.prototype.refresh = function() {
     this._tp = this._tp.clamp(0, this.maxTp());
 };
 
-/*
+
 Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
     return this._tp >= this.skillTpCost(skill) && this._mp > 0;
 };
-*/
+
 
 Game_BattlerBase.prototype.canInput = function() {
     return this.isAppeared() && !this.isRestricted() && !this.isAutoBattle() && if (typeof this.mp === "undefined") {
