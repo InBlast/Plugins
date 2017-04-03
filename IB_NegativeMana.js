@@ -4,11 +4,18 @@
  
 
 /*:
- * @plugindesc v1.01 Allow the mana to take negative values
+ * @plugindesc v1.02 Allow the mana to take negative values
  * @author InBlast  
  *       
+ * @param MpColor     
+ * @desc The color of the Mp bar when mana is negative (Hexa):    
+ * Default: #0000CD 
+ * @default #0000CD
  *
- *
+ * @param Negative state ID     
+ * @desc The ID of the negative Mana State:    
+ * Default: 3
+ * @default 3
  *
  * @help 
  * --------------------------------------------------------------------------------
@@ -24,11 +31,15 @@
  * --------------------------------------------------------------------------------
  * 1.00 - Release
  * 1.01 - Makes the actor unable to use a skill if it costs mana and his mana is negative.
+ * 1.02 - Adding some parameters.
 
  */
  
   (function() {
   var parameters = PluginManager.parameters('IB_NegativeMana');
+  var mpColor = String(parameters['MpColor'] || '#0000CD');
+  var negMpState = parameters['Negative state ID'] || 3;
+
 
 Game_BattlerBase.prototype.refresh = function() {
     this.stateResistSet().forEach(function(stateId) {
@@ -39,6 +50,12 @@ Game_BattlerBase.prototype.refresh = function() {
       this._mp = this.mmp;
     }
     this._tp = this._tp.clamp(0, this.maxTp());
+    if(this._mp <=0 ) {
+      this.addState(negMpState);
+    }else {
+      this.removeState(negMpState);
+    };
+
 };
 
 
@@ -46,13 +63,22 @@ Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
     return this._tp >= this.skillTpCost(skill) && this._mp > 0;
 };
 
-
-Game_BattlerBase.prototype.canInput = function() {
-    return this.isAppeared() && !this.isRestricted() && !this.isAutoBattle() && if (typeof this.mp === "undefined") {
-  true
-} else {
-  !this.mp<0?
+Window_Base.prototype.mpColor = function(actor) {
+  if(actor._mp <= 0){
+    return mpColor;
+  } else {
+    return this.normalColor();
+  }
 };
+
+Window_Base.prototype.drawActorName = function(actor, x, y, width) {
+    width = width || 168;
+    if(actor._mp<=0 && !actor.isDeathStateAffected()){
+      this.changeTextColor(mpColor);
+    } else {
+      this.changeTextColor(this.hpColor(actor));
+    }
+    this.drawText(actor.name(), x, y, width);
 };
 
 
@@ -66,4 +92,4 @@ Window_Base.prototype.drawGauge = function(x, y, width, rate, color1, color2) {
     this.contents.gradientFillRect(x, gaugeY, fillW, 6, color1, color2);
 };
 
-  })(); 
+})(); 
