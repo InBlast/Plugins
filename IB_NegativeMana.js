@@ -24,6 +24,9 @@
  * This plugin allow a spell to be used when you don't have enouth mana, and this will make
  * your mp takes negatives values.
  *
+ * To activate this feature on an enemy or an actor, simply put :
+ * <NegState>
+ * In the character's notetag.
  * --------------------------------------------------------------------------------
  *
  * --------------------------------------------------------------------------------
@@ -32,6 +35,7 @@
  * 1.00 - Release
  * 1.01 - Makes the actor unable to use a skill if it costs mana and his mana is negative.
  * 1.02 - Adding some parameters.
+ * 1.03 - Adding the tag "NegState" for enemies & actors
 
  */
  
@@ -41,6 +45,12 @@
   var negMpState = parameters['Negative state ID'] || 3;
 
 
+//----------------------------------------------------------------------
+//                          Game_BattlerBase
+//----------------------------------------------------------------------
+
+
+// Changes to allow the MP to go negative & applying the NegState.
 Game_BattlerBase.prototype.refresh = function() {
     this.stateResistSet().forEach(function(stateId) {
         this.eraseState(stateId);
@@ -50,18 +60,38 @@ Game_BattlerBase.prototype.refresh = function() {
       this._mp = this.mmp;
     }
     this._tp = this._tp.clamp(0, this.maxTp());
+    this.shouldNegativeMpState();
+
+};
+
+//Is the user a Negative MP State user ?
+Game_BattlerBase.prototype.isNegMpUser = function() {
+  return (this.subject().isEnemy() && this.subject().enemy().meta.NegState) || (this.subject().isActor() && this.subject().Actor().meta.NegState)
+};
+
+// Apply or remove the NegMpState if necessary
+Game_BattlerBase.prototype.shouldNegativeMpState = function() {
+  if(this.isNegMpUser()) {
     if(this._mp <0 ) {
       this.addState(negMpState);
-    }else {
+    } else {
       this.removeState(negMpState);
     };
+  };
 
 };
-
 
 Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
+  if(this.isNegMpUser()) {
     return this._tp >= this.skillTpCost(skill) && this._mp > 0;
+  } else {
+    return this._tp >= this.skillTpCost && this._mp >= this.skillMpCost;
+  }
 };
+
+//----------------------------------------------------------------------
+//                          Window_Base
+//----------------------------------------------------------------------
 
 Window_Base.prototype.mpColor = function(actor) {
   if(actor._mp < 0){
