@@ -50,7 +50,7 @@ Game_BattlerBase.prototype.refresh = function() {
       this._mp = this.mmp;
     }
     this._tp = this._tp.clamp(0, this.maxTp());
-    if(this._mp <=0 ) {
+    if(this._mp <0 ) {
       this.addState(negMpState);
     }else {
       this.removeState(negMpState);
@@ -64,7 +64,7 @@ Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
 };
 
 Window_Base.prototype.mpColor = function(actor) {
-  if(actor._mp <= 0){
+  if(actor._mp < 0){
     return mpColor;
   } else {
     return this.normalColor();
@@ -73,7 +73,7 @@ Window_Base.prototype.mpColor = function(actor) {
 
 Window_Base.prototype.drawActorName = function(actor, x, y, width) {
     width = width || 168;
-    if(actor._mp<=0 && !actor.isDeathStateAffected()){
+    if(actor._mp<0 && !actor.isDeathStateAffected()){
       this.changeTextColor(mpColor);
     } else {
       this.changeTextColor(this.hpColor(actor));
