@@ -72,7 +72,7 @@ Game_BattlerBase.prototype.isNegMpUser = function() {
 // Apply or remove the NegMpState if necessary
 Game_BattlerBase.prototype.shouldNegativeMpState = function() {
   if(this.isNegMpUser()) {
-    if(this._mp <0 ) {
+    if(this._mp <=0 ) {
       this.addState(negMpState);
     } else {
       this.removeState(negMpState);
@@ -94,7 +94,7 @@ Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
 //----------------------------------------------------------------------
 
 Window_Base.prototype.mpColor = function(actor) {
-  if(actor._mp < 0){
+  if(actor._mp <= 0){
     return mpColor;
   } else {
     return this.normalColor();
@@ -103,7 +103,7 @@ Window_Base.prototype.mpColor = function(actor) {
 
 Window_Base.prototype.drawActorName = function(actor, x, y, width) {
     width = width || 168;
-    if(actor._mp<0 && !actor.isDeathStateAffected()){
+    if(actor._mp<=0 && !actor.isDeathStateAffected()){
       this.changeTextColor(mpColor);
     } else {
       this.changeTextColor(this.hpColor(actor));
