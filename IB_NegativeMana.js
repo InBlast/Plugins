@@ -58,7 +58,7 @@ Game_BattlerBase.prototype.refresh = function() {
     this._hp = this._hp.clamp(0, this.mhp);
     if(this._mp > this.mmp) {
       this._mp = this.mmp;
-    }
+    };
     this._tp = this._tp.clamp(0, this.maxTp());
     this.shouldNegativeMpState();
 
@@ -86,7 +86,7 @@ Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
     return this._tp >= this.skillTpCost(skill) && this._mp > 0;
   } else {
     return this._tp >= this.skillTpCost && this._mp >= this.skillMpCost;
-  }
+  };
 };
 
 //----------------------------------------------------------------------
@@ -98,7 +98,7 @@ Window_Base.prototype.mpColor = function(actor) {
     return mpColor;
   } else {
     return this.normalColor();
-  }
+  };
 };
 
 Window_Base.prototype.drawActorName = function(actor, x, y, width) {
@@ -107,7 +107,7 @@ Window_Base.prototype.drawActorName = function(actor, x, y, width) {
       this.changeTextColor(mpColor);
     } else {
       this.changeTextColor(this.hpColor(actor));
-    }
+    };
     this.drawText(actor.name(), x, y, width);
 };
 
@@ -115,7 +115,7 @@ Window_Base.prototype.drawActorName = function(actor, x, y, width) {
 Window_Base.prototype.drawGauge = function(x, y, width, rate, color1, color2) {
   if(rate<0) {
     rate = 0;
-  }
+  };
     var fillW = Math.floor(width * rate);
     var gaugeY = y + this.lineHeight() - 8;
     this.contents.fillRect(x, gaugeY, width, 6, this.gaugeBackColor());
