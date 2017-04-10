@@ -66,7 +66,7 @@ Game_BattlerBase.prototype.refresh = function() {
 
 //Is the user a Negative MP State user ?
 Game_BattlerBase.prototype.isNegMpUser = function() {
-  return (this.subject().isEnemy() && this.subject().enemy().meta.NegState) || (this.subject().isActor() && this.subject().Actor().meta.NegState)
+  return (this.isEnemy() && this.enemy().meta.NegState) || (this.isActor() && this.actor().meta.NegState);
 };
 
 // Apply or remove the NegMpState if necessary
