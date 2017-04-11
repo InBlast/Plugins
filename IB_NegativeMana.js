@@ -66,7 +66,9 @@ Game_BattlerBase.prototype.refresh = function() {
 
 //Is the user a Negative MP State user ?
 Game_BattlerBase.prototype.isNegMpUser = function() {
+
   return (this.isEnemy() && this.enemy().meta.NegState) || (this.isActor() && this.actor().meta.NegState);
+
 };
 
 // Apply or remove the NegMpState if necessary
@@ -82,10 +84,11 @@ Game_BattlerBase.prototype.shouldNegativeMpState = function() {
 };
 
 Game_BattlerBase.prototype.canPaySkillCost = function(skill) {
+
   if(this.isNegMpUser()) {
     return this._tp >= this.skillTpCost(skill) && this._mp > 0;
   } else {
-    return this._tp >= this.skillTpCost && this._mp >= this.skillMpCost;
+    return this._tp >= this.skillTpCost(skill) && this._mp >= this.skillMpCost(skill);
   };
 };
 
